@@ -101,10 +101,10 @@ class EmrLauncher(object):
 
     def main(self):
         try:
-            master_type = 'm3.large'
-            slave_type = 'm3.large'
+            master_type = 'm3.xlarge'
+            slave_type = 'm3.xlarge'
             num_instance = 3
-            ami_version = '3.1.1'
+            ami_version = '2.4.8'
 
             emr_status = self.launch_emr_cluster(master_type, slave_type, num_instance, ami_version)
             if emr_status == 'SUCCESS':
