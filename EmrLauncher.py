@@ -14,12 +14,12 @@ class EmrLauncher(object):
     # Default constructor of the class.
     def __init__(self):
         try:
-            self.zone_name = "us-west-2"
+            self.zone_name = "ap-southeast-1"
             self.access_key = "xxxxxx"
             self.private_key = "xxxxxxx"
             self.ec2_keyname = "xxxxxxxx"
             self.base_bucket = "s3://emr-bucket/"
-            self.bootstrap_script = "bootstrap.sh"
+            self.bootstrap_script = "custom-bootstrap.sh"
             self.log_dir = "Logs"
             self.emr_status_wait = 20
             self.conn = ""
@@ -37,10 +37,10 @@ class EmrLauncher(object):
     def launch_emr_cluster(self, master_type, slave_type, num_instance, ami_version):
         try:
             #Custom Bootstrap step
-            bootstrap_step = BootstrapAction("BootStrap", self.bootstrap_script_name, None)
+            bootstrap_step = BootstrapAction("CustomBootStrap", self.bootstrap_script_name, None)
 
-            #Modifyting block size to 64 MB
-            block_size_conf = 'dfs.block.size=128'
+            #Modifyting block size to 256 MB
+            block_size_conf = 'dfs.block.size=256'
             hadoop_config_params = ['-h', block_size_conf, '-h']
             hadoop_config_bootstrapper = BootstrapAction('hadoop-config',
                                                's3://elasticmapreduce/bootstrap-actions/configure-hadoop',
